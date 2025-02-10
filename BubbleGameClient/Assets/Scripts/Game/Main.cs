@@ -114,6 +114,9 @@ public class Main : MonoBehaviour
             }
         }
 
+        m_Player1.transform.localRotation = Quaternion.Euler(0, 0, m_Player1Angle);
+        m_Player2.transform.localRotation = Quaternion.Euler(0, 0, -m_Player2Angle);
+
         // ñAê∂ê¨
         m_Player1Counter -= Time.deltaTime;
         if (m_Player1Counter <= 0)
@@ -153,6 +156,7 @@ public class Main : MonoBehaviour
             }
         }
 
+        // éGãõà⁄ìÆ
         m_EnemySpawnCounter -= Time.deltaTime;
         if (m_EnemySpawnCounter < 0)
         {
@@ -172,8 +176,9 @@ public class Main : MonoBehaviour
                 m_Enemies.RemoveAt(i);
             }
         }
-        
 
+
+        // ñAìØémÇÃè’ìÀîªíË
         for (var i = (m_Player1Bubbles.Count - 1); i >= 0; i--)
         {
             var p1bubble = m_Player1Bubbles[i];
@@ -201,11 +206,12 @@ public class Main : MonoBehaviour
             }
         }
 
+        // çUåÇñAÇÃè’ìÀîªíË
         for (var i = (m_AttackBubbles.Count - 1); i >= 0; i--)
         {
             var diff = m_Boss.transform.position - m_AttackBubbles[i].transform.position;
             var dist = diff.magnitude;
-            var conflict = dist <= 0.8f;
+            var conflict = dist <= 1.0f;
             if (conflict)
             {
                 m_Score++;
