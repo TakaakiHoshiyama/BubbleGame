@@ -44,72 +44,12 @@ public class Main : MonoBehaviour
 
     private void Update()
     {
-        // 現在のキーボード情報
-        m_Player1Speed = 4;
-        m_Player2Speed = 4;
-        m_Player1Angle = 10;
-        m_Player2Angle = 10;
-        var current = Keyboard.current;
-        if (current != null)
-        {
-            if (current.zKey.isPressed)
-            {
-                m_Player1Speed = 6;
-            }
-            else if (current.xKey.isPressed)
-            {
-                m_Player1Speed = 8;
-            }
-            else if (current.aKey.isPressed)
-            {
-                m_Player1Speed = 6;
-                m_Player1Angle = 20;
-            }
-            else if (current.sKey.isPressed)
-            {
-                m_Player1Speed = 8;
-                m_Player1Angle = 20;
-            }
-            else if (current.qKey.isPressed)
-            {
-                m_Player1Speed = 6;
-                m_Player1Angle = 30;
-            }
-            else if (current.wKey.isPressed)
-            {
-                m_Player1Speed = 8;
-                m_Player1Angle = 30;
-            }
+        GameMain();
+    }
 
-            if (current.oem2Key.isPressed)
-            {
-                m_Player2Speed = 6;
-            }
-            else if (current.slashKey.isPressed)
-            {
-                m_Player2Speed = 8;
-            }
-            else if (current.backslashKey.isPressed)
-            {
-                m_Player2Speed = 6;
-                m_Player2Angle = 20;
-            }
-            else if (current.quoteKey.isPressed)
-            {
-                m_Player2Speed = 8;
-                m_Player2Angle = 20;
-            }
-            else if (current.rightBracketKey.isPressed)
-            {
-                m_Player2Speed = 6;
-                m_Player2Angle = 30;
-            }
-            else if (current.leftBracketKey.isPressed)
-            {
-                m_Player2Speed = 8;
-                m_Player2Angle = 30;
-            }
-        }
+    private void GameMain()
+    {
+        InputProc();
 
         m_Player1.transform.localRotation = Quaternion.Euler(0, 0, m_Player1Angle);
         m_Player2.transform.localRotation = Quaternion.Euler(0, 0, -m_Player2Angle);
@@ -232,7 +172,76 @@ public class Main : MonoBehaviour
                         break;
                     }
                 }
+            }
+        }
+    }
 
+    private void InputProc()
+    {
+        // 現在のキーボード情報
+        m_Player1Speed = 4;
+        m_Player2Speed = 4;
+        m_Player1Angle = 10;
+        m_Player2Angle = 10;
+        var current = Keyboard.current;
+        if (current != null)
+        {
+            if (current.zKey.isPressed)
+            {
+                m_Player1Speed = 6;
+            }
+            else if (current.xKey.isPressed)
+            {
+                m_Player1Speed = 8;
+            }
+            else if (current.aKey.isPressed)
+            {
+                m_Player1Speed = 6;
+                m_Player1Angle = 20;
+            }
+            else if (current.sKey.isPressed)
+            {
+                m_Player1Speed = 8;
+                m_Player1Angle = 20;
+            }
+            else if (current.qKey.isPressed)
+            {
+                m_Player1Speed = 6;
+                m_Player1Angle = 30;
+            }
+            else if (current.wKey.isPressed)
+            {
+                m_Player1Speed = 8;
+                m_Player1Angle = 30;
+            }
+
+            if (current.oem2Key.isPressed)
+            {
+                m_Player2Speed = 6;
+            }
+            else if (current.slashKey.isPressed)
+            {
+                m_Player2Speed = 8;
+            }
+            else if (current.backslashKey.isPressed)
+            {
+                m_Player2Speed = 6;
+                m_Player2Angle = 20;
+            }
+            else if (current.quoteKey.isPressed)
+            {
+                m_Player2Speed = 8;
+                m_Player2Angle = 20;
+            }
+            else if (current.rightBracketKey.isPressed)
+            {
+                m_Player2Speed = 6;
+                m_Player2Angle = 30;
+            }
+            else if (current.leftBracketKey.isPressed)
+            {
+                m_Player2Speed = 8;
+                m_Player2Angle = 30;
             }
         }
     }
