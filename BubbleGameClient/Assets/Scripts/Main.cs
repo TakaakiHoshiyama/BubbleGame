@@ -4,14 +4,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+using static UnityEditor.PlayerSettings;
 
 public class Main : MonoBehaviour
 {
-    [SerializeField] GameObject m_Bubble;
+    [SerializeField] GameObject m_BubblePrefab;
+    [SerializeField] GameObject m_EnemyPrefab;
+
     [SerializeField] GameObject m_Player1;
     [SerializeField] GameObject m_Player2;
     [SerializeField] GameObject m_Boss;
     [SerializeField] Transform m_StageBase;
+    [SerializeField] Transform m_BubbleParent;
+    [SerializeField] Transform m_EnemyParent;
     [SerializeField] TextMeshProUGUI m_ScoreText;
 
     private float m_Player1Speed;
@@ -25,6 +30,8 @@ public class Main : MonoBehaviour
 
     private int m_Score;
 
+    private List<Enemy> m_Enemies = new();
+    private float m_EnemySpawnCounter;
     private List<Bubble> m_AttackBubbles = new();
 
     private void Start()
@@ -34,6 +41,7 @@ public class Main : MonoBehaviour
         m_Player1Bubbles.Clear();
         m_Player1Bubbles.Clear();
         m_AttackBubbles.Clear();
+        m_Enemies.Clear();
         m_Score = 0;
     }
 
@@ -106,6 +114,7 @@ public class Main : MonoBehaviour
             }
         }
 
+        // ñAê∂ê¨
         m_Player1Counter -= Time.deltaTime;
         if (m_Player1Counter <= 0)
         {
@@ -143,6 +152,27 @@ public class Main : MonoBehaviour
                 m_AttackBubbles.RemoveAt(i);
             }
         }
+
+        m_EnemySpawnCounter -= Time.deltaTime;
+        if (m_EnemySpawnCounter < 0)
+        {
+            var go = Instantiate(m_EnemyPrefab, m_EnemyParent);
+            var pos = new Vector3(Random.Range(-7.5f, 7.5f), 7, 0);
+            go.transform.localPosition = pos;
+            var comp = go.GetComponent<Enemy>();
+            comp.SetParam(new Vector2(0, -1));
+            m_Enemies.Add(comp);
+            m_EnemySpawnCounter = 1;
+        }
+        for (var i = (m_Enemies.Count - 1); i >= 0; i--)
+        {
+            if (m_Enemies[i].Move())
+            {
+                Destroy(m_Enemies[i].gameObject);
+                m_Enemies.RemoveAt(i);
+            }
+        }
+        
 
         for (var i = (m_Player1Bubbles.Count - 1); i >= 0; i--)
         {
@@ -183,6 +213,24 @@ public class Main : MonoBehaviour
                 Destroy(m_AttackBubbles[i].gameObject);
                 m_AttackBubbles.RemoveAt(i);
             }
+            else
+            {
+                for (var j = (m_Enemies.Count - 1); j >= 0; j--)
+                {
+                    diff = m_Enemies[j].transform.position - m_AttackBubbles[i].transform.position;
+                    dist = diff.magnitude;
+                    conflict = dist <= 0.8f;
+                    if (conflict)
+                    {
+                        Destroy(m_AttackBubbles[i].gameObject);
+                        m_AttackBubbles.RemoveAt(i);
+                        Destroy(m_Enemies[j].gameObject);
+                        m_Enemies.RemoveAt(j);
+                        break;
+                    }
+                }
+
+            }
         }
     }
 
@@ -209,7 +257,7 @@ public class Main : MonoBehaviour
 
     private void CreateBubble(int side, Vector3 pos, Vector2 velocity)
     {
-        var go = Instantiate(m_Bubble, m_StageBase);
+        var go = Instantiate(m_BubblePrefab, m_BubbleParent);
         go.transform.localPosition = pos;
         var comp = go.GetComponent<Bubble>();
         if (side == 0)
