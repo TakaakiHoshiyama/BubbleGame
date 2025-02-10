@@ -9,6 +9,8 @@ public class Bubble : MonoBehaviour
     private int m_Side;
     private Vector2 m_Velocity;
 
+    public Vector2 Velocity => m_Velocity;
+
     public void SetParam(int side, Vector2 velocity)
     {
         m_Side = side;
