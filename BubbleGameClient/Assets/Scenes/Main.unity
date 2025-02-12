@@ -373,6 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BubblePrefab: {fileID: 4186445311967352627, guid: c43ea3da512f88e49a11f60aa304a07e, type: 3}
   m_EnemyPrefab: {fileID: 2454921902679516668, guid: 18d51531b4ab76c49a101606877c9585, type: 3}
+  m_UiCamera: {fileID: 519420031}
   m_Player1: {fileID: 901408897}
   m_Player2: {fileID: 1958376883}
   m_Boss: {fileID: 1937183248}

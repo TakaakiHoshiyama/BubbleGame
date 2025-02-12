@@ -5,16 +5,17 @@ using UnityEngine.InputSystem;
 
 public class Main : MonoBehaviour
 {
-    [SerializeField] GameObject m_BubblePrefab;
-    [SerializeField] GameObject m_EnemyPrefab;
+    [SerializeField] private GameObject m_BubblePrefab;
+    [SerializeField] private GameObject m_EnemyPrefab;
 
-    [SerializeField] GameObject m_Player1;
-    [SerializeField] GameObject m_Player2;
-    [SerializeField] GameObject m_Boss;
-    [SerializeField] Transform m_StageBase;
-    [SerializeField] Transform m_BubbleParent;
-    [SerializeField] Transform m_EnemyParent;
-    [SerializeField] TextMeshProUGUI m_ScoreText;
+    [SerializeField] private Camera m_UiCamera;
+    [SerializeField] private GameObject m_Player1;
+    [SerializeField] private GameObject m_Player2;
+    [SerializeField] private GameObject m_Boss;
+    [SerializeField] private Transform m_StageBase;
+    [SerializeField] private Transform m_BubbleParent;
+    [SerializeField] private Transform m_EnemyParent;
+    [SerializeField] private TextMeshProUGUI m_ScoreText;
 
     private float m_Player1Speed;
     private float m_Player1Angle;
@@ -33,6 +34,8 @@ public class Main : MonoBehaviour
 
     private void Start()
     {
+        GlobalObject.Instance.SetupUICamera(m_UiCamera);
+
         m_Player1Counter = 0;
         m_Player2Counter = 0;
         m_Player1Bubbles.Clear();
@@ -40,6 +43,8 @@ public class Main : MonoBehaviour
         m_AttackBubbles.Clear();
         m_Enemies.Clear();
         m_Score = 0;
+
+        GlobalObject.Instance.Fader.FadeIn(1);
     }
 
     private void Update()
