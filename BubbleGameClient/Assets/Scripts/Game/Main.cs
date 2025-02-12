@@ -186,8 +186,8 @@ public class Main : MonoBehaviour
         // 現在のキーボード情報
         m_Player1Speed = 4;
         m_Player2Speed = 4;
-        m_Player1Angle = 10;
-        m_Player2Angle = 10;
+        m_Player1Angle = 5;
+        m_Player2Angle = 5;
         var current = Keyboard.current;
         if (current != null)
         {
@@ -202,22 +202,22 @@ public class Main : MonoBehaviour
             else if (current.aKey.isPressed)
             {
                 m_Player1Speed = 6;
-                m_Player1Angle = 20;
+                m_Player1Angle = 10;
             }
             else if (current.sKey.isPressed)
             {
                 m_Player1Speed = 8;
-                m_Player1Angle = 20;
+                m_Player1Angle = 10;
             }
             else if (current.qKey.isPressed)
             {
                 m_Player1Speed = 6;
-                m_Player1Angle = 30;
+                m_Player1Angle = 20;
             }
             else if (current.wKey.isPressed)
             {
                 m_Player1Speed = 8;
-                m_Player1Angle = 30;
+                m_Player1Angle = 20;
             }
 
             if (current.oem2Key.isPressed)
@@ -231,22 +231,22 @@ public class Main : MonoBehaviour
             else if (current.backslashKey.isPressed)
             {
                 m_Player2Speed = 6;
-                m_Player2Angle = 20;
+                m_Player2Angle = 10;
             }
             else if (current.quoteKey.isPressed)
             {
                 m_Player2Speed = 8;
-                m_Player2Angle = 20;
+                m_Player2Angle = 10;
             }
             else if (current.rightBracketKey.isPressed)
             {
                 m_Player2Speed = 6;
-                m_Player2Angle = 30;
+                m_Player2Angle = 20;
             }
             else if (current.leftBracketKey.isPressed)
             {
                 m_Player2Speed = 8;
-                m_Player2Angle = 30;
+                m_Player2Angle = 20;
             }
         }
     }
