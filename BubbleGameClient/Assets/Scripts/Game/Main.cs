@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,6 +34,8 @@ public class Main : MonoBehaviour
     private float m_EnemySpawnCounter;
     private List<Bubble> m_AttackBubbles = new();
 
+    private List<Joycon> m_Joycons;
+
     private void Start()
     {
         GlobalObject.Instance.SetupUICamera(m_UiCamera);
@@ -43,6 +47,7 @@ public class Main : MonoBehaviour
         m_AttackBubbles.Clear();
         m_Enemies.Clear();
         m_Score = 0;
+        m_Joycons = JoyconManager.Instance.j;
 
         GlobalObject.Instance.Fader.FadeIn(1);
     }
@@ -98,6 +103,7 @@ public class Main : MonoBehaviour
             }
         }
 
+#if false
         // ŽG‹›ˆÚ“®
         m_EnemySpawnCounter -= Time.deltaTime;
         if (m_EnemySpawnCounter < 0)
@@ -118,7 +124,7 @@ public class Main : MonoBehaviour
                 m_Enemies.RemoveAt(i);
             }
         }
-
+#endif
 
         // –A“¯Žm‚ÌÕ“Ë”»’è
         for (var i = (m_Player1Bubbles.Count - 1); i >= 0; i--)
@@ -249,6 +255,29 @@ public class Main : MonoBehaviour
                 m_Player2Angle = 20;
             }
         }
+
+        if (m_Joycons.Count >= 1)
+        {
+            var stick = m_Joycons[0].GetStick();
+            var gyro = m_Joycons[0].GetAccel();
+            //m_Player1Speed = 6 + stick[1] * 2;
+            m_Player1Angle = gyro.x * 90;
+            //Debug.Log("Stick1 X:" + stick[0] + " Y:" + stick[1]);
+            Debug.Log("Gyro1:" + m_Player1Angle);
+        }
+        if (m_Joycons.Count >= 2)
+        {
+            var stick = m_Joycons[1].GetStick();
+            var gyro = m_Joycons[1].GetAccel();
+            //m_Player2Speed = 6 + stick[1] * 2;
+            m_Player2Angle = gyro.x * 90;
+            //Debug.Log("Stick2 X:" + stick[0] + " Y:" + stick[1]);
+            Debug.Log("Gyro2:" + m_Player2Angle);
+        }
+        m_Player1Speed = 8;
+        m_Player2Speed = 8;
+        m_Player1Angle = Mathf.Clamp(m_Player1Angle, 5, 30);
+        m_Player2Angle = Mathf.Clamp(m_Player2Angle, 5, 30);
     }
 
     private void CreateBubble(int side, Vector3 pos, float angle, float speed)
