@@ -263,7 +263,7 @@ public class Main : MonoBehaviour
             //m_Player1Speed = 6 + stick[1] * 2;
             m_Player1Angle = gyro.x * 90;
             //Debug.Log("Stick1 X:" + stick[0] + " Y:" + stick[1]);
-            Debug.Log("Gyro1:" + m_Player1Angle);
+            //Debug.Log("Gyro1:" + m_Player1Angle);
         }
         if (m_Joycons.Count >= 2)
         {
@@ -272,7 +272,7 @@ public class Main : MonoBehaviour
             //m_Player2Speed = 6 + stick[1] * 2;
             m_Player2Angle = gyro.x * 90;
             //Debug.Log("Stick2 X:" + stick[0] + " Y:" + stick[1]);
-            Debug.Log("Gyro2:" + m_Player2Angle);
+            //Debug.Log("Gyro2:" + m_Player2Angle);
         }
         m_Player1Speed = 8;
         m_Player2Speed = 8;

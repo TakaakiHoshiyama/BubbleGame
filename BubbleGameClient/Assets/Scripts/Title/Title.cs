@@ -28,6 +28,15 @@ public class Title : MonoBehaviour
                 if (m_Joycons[0].GetButtonDown(Joycon.Button.DPAD_RIGHT))
                 {
                     OnClickStartButton();
+                    return;
+                }
+            }
+            if (m_Joycons.Count >= 2)
+            {
+                if (m_Joycons[1].GetButtonDown(Joycon.Button.DPAD_RIGHT))
+                {
+                    OnClickStartButton();
+                    return;
                 }
             }
         }
